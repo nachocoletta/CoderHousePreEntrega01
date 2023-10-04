@@ -1,0 +1,90 @@
+[
+	{
+		"id": "a9e0d484-3a4f-4d92-9913-5a7b80b815ae",
+		"title": "titulo 1",
+		"description": "descripcion 1",
+		"code": "f4fff4",
+		"price": 400,
+		"status": true,
+		"stock": 20,
+		"category": "categoria 1",
+		"thumbnails": []
+	},
+	{
+		"id": "0d0b3811-21c3-4188-88c3-c38c0d507e69",
+		"title": "titulo 1",
+		"description": "descripcion 1",
+		"code": "f4fffaf4",
+		"price": 400,
+		"status": true,
+		"stock": 20,
+		"category": "categoria 1",
+		"thumbnails": []
+	},
+	{
+		"id": "0a94fe09-8ba9-4802-952a-754dc988a1a8",
+		"title": "titulo 1",
+		"description": "descripcion 1",
+		"code": "f4ffffaf4",
+		"price": 400,
+		"status": true,
+		"stock": 20,
+		"category": "categoria 1",
+		"thumbnails": []
+	},
+	{
+		"id": "94dd57be-693c-416c-ae40-28b38d918470",
+		"title": "titulo 1",
+		"description": "descripcion 1",
+		"code": "f4ffffadf4",
+		"price": 400,
+		"status": true,
+		"stock": 20,
+		"category": "categoria 1",
+		"thumbnails": []
+	},
+	{
+		"id": "84d051ed-c31e-4269-a18b-bcfb2b696006",
+		"title": "titulo 1",
+		"description": "descripcion 1",
+		"code": "daf",
+		"price": 400,
+		"status": true,
+		"stock": 20,
+		"category": "categoria 1",
+		"thumbnails": []
+	},
+	{
+		"id": "9136209a-1880-4a08-932e-fb82de7dfc86",
+		"title": "titulo 1",
+		"description": "descripcion 1",
+		"code": "daff",
+		"price": 400,
+		"status": true,
+		"stock": 20,
+		"category": "categoria 1",
+		"thumbnails": []
+	},
+	{
+		"id": "55838e68-63c9-4764-8239-2cacc7ae1979",
+		"title": "titulo 1",
+		"description": "descripcion 1",
+		"code": "daffdd",
+		"price": 400,
+		"status": true,
+		"stock": 20,
+		"category": "categoria 1",
+		"thumbnails": []
+	},
+	{
+		"id": "279513a2-85c0-4e2d-9178-c9169e4d4934",
+		"title": "titulo 1",
+		"description": "descripcion 1",
+		"code": "fff",
+		"price": 400,
+		"status": true,
+		"stock": 20,
+		"category": "categoria 1",
+		"thumbnails": []
+	}
+]
