@@ -1,5 +1,6 @@
-import  fs from "fs";
-import { getNewId } from '../utils/utils.js'
+
+import { getNewId, getJSONFromFile, saveJSONToFile } from '../utils/utils.js'
+
 
 export class ProductManager {
   constructor(path) {
@@ -32,6 +33,8 @@ export class ProductManager {
         return newProduct;
       }else {
         let error = `The code '${findedCode.code}' already exists`
+        // throw new Error('Error...')
+        // console.log(error)
         return error;
       }
     } catch {
@@ -56,10 +59,12 @@ export class ProductManager {
     id,
     title,
     description,
-    price,
-    thumbnail,
     code,
+    price,
+    status,
     stock,
+    category,
+    thumbnails,
   }) {
     if (!id) {
       // console.log(`You must provide an ID`);
@@ -84,9 +89,12 @@ export class ProductManager {
       product.title = title || product.title;
       product.description = description || product.description;
       product.price = price || product.price;
-      product.thumbnail = thumbnail || product.thumbnail;
       product.code = code || product.code;
+      product.status = status !== undefined ? status : product.status;
+      // product.status = status || product.status;
       product.stock = stock || product.stock;
+      product.category = category || product.category;
+      product.thumbnails = thumbnails || product.thumbnails;
 
       const data = await getJSONFromFile(this.path);
       const productIndex = data.findIndex((product) => product.id === id);
@@ -99,8 +107,8 @@ export class ProductManager {
 
   async deleteProduct(id) {
     if (!id) {
-      console.log(`You must provide an ID`);
-      // throw new Error(`You must provide an ID`);
+      // console.log(`You must provide an ID`);
+      throw new Error(`You must provide an ID`);
     }
 
     let product = await this.getProductById(id);
@@ -117,44 +125,3 @@ export class ProductManager {
     }
   }
 }
-
-const existFile = async (path) => {
-  try {
-    await fs.promises.access(path);
-    return true;
-  } catch (error) {
-    return false;
-  }
-};
-
-export const getJSONFromFile = async (path) => {
-  if (!(await existFile(path))) {
-    return [];
-  }
-
-  let content;
-
-  try {
-    content = await fs.promises.readFile(path, "utf-8");
-  } catch (error) {
-    throw new Error(`El archivo ${path} no pudo ser leido.`);
-  }
-
-  try {
-    return JSON.parse(content);
-  } catch (error) {
-    throw new Error(`El archivo ${path} no tiene un formato JSON válido.`);
-  }
-};
-
-export const saveJSONToFile = async (path, data) => {
-  // console.log(path, data)
-  // return
-  const content = JSON.stringify(data, null, "\t");
-  try {
-    await fs.promises.writeFile(path, content, "utf-8");
-  } catch (error) {
-    throw new Error(`El archivo ${path} no pudo ser escrito.`);
-  }
-};
-
