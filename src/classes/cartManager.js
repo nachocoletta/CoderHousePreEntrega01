@@ -41,17 +41,34 @@ export class CartManager {
     async addProductToCart(cartId, {productId, quantity}){
         try {
             //  return {cartId, productId, quantity}
-
             const carts = await getJSONFromFile(this.path)
-            // console.log(carts)
-            // return true
-            let cartToBeUpdated = carts.find((c) => c.id === cartId)
-            console.log("cartToBeUpdated", cartToBeUpdated)
-            cartToBeUpdated.products.push({productId, quantity})
-            await saveJSONToFile(this.path, cartToBeUpdated)
-            return {productId, quantity}
+            let cartIndex = carts.findIndex(c  => c.id === cartId)
+            // console.log("cartIndex", cartIndex)
+            if(cartIndex){
+                let findedProduct = carts[cartIndex].products.find(element => element.productId === productId)
+                if(!findedProduct){
+                    carts[cartIndex].products.push({productId, quantity})
+                }else{
+                    let findedIndex = carts[cartIndex].products.findIndex(prod => prod.productId === productId)
+                    carts[cartIndex].products[findedIndex].quantity = carts[cartIndex].products[findedIndex].quantity + quantity 
+                }
+                // console.log(carts[cartIndex])
+                await saveJSONToFile(this.path, carts)
+            }else {
+                console.log(`Cart doesn't exists`)
+            }
         }catch(error){
-            throw new Error(`Something is wrong`)
+            throw new Error(`Something is wrong ${error.message}`)
+        }
+    }
+
+    async getCartProducts(cartId){
+        try {
+            const cart = await this.getCartById(cartId)
+            return cart.products
+            // console.log(cart) 
+        }catch(error){
+            throw new Error(`Something is wrong ${error.message}`)
         }
     }
 }

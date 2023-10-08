@@ -50,14 +50,24 @@ router.post('/:cid/product/:pid', async (req, res) => {
             return res.status(404).send(`Cart with id ${cid} doesn't exists`)
         }
 
-        const fafafa = await cartManager.addProductToCart(cid, {productId: pid, quantity})
-        console.log("fafafa", fafafa)
-        
+        await cartManager.addProductToCart(cid, {productId: pid, quantity})
+        // console.log("fafafa", fafafa)
+        cart = await cartManager.getCartById(cid)
         return res.status(200).json({data: cart})
     }catch(error){
         return res.status(500).json({error: error.message})
     }
 })
 
+router.get('/:cid', async (req, res) => {
+    const { cid } = req.params
 
+    const cartProducts = await cartManager.getCartProducts(cid)
+    res.status(200).send(cartProducts)
+})
+
+router.get('/', async (req, res) => {
+    const carts = await cartManager.getCarts();
+    return res.status(200).json(carts)
+})
 export default router;
