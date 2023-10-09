@@ -67,8 +67,7 @@ export class CartManager {
     async getCartProducts(cartId){
         try {
             const cart = await this.getCartById(cartId)
-            return cart.products
-            // console.log(cart) 
+            return typeof cart !== 'string' ? cart.products : {error: `Cart doesn't exists`}
         }catch(error){
             throw new Error(`Something is wrong ${error.message}`)
         }

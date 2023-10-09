@@ -43,11 +43,11 @@ router.post('/:cid/product/:pid', async (req, res) => {
         let product = await productManager.getProductById(pid)
         // console.log(product)
         if(!product){
-            return res.status(404).send(`Product with id ${pid} doesn't exists`)
+            return res.status(404).json({error: `Product with id ${pid} doesn't exists`})
         }
         let cart = await cartManager.getCartById(cid)
         if(typeof cart === 'string'){
-            return res.status(404).send(`Cart with id ${cid} doesn't exists`)
+            return res.status(404).json({error: `Cart with id ${cid} doesn't exists`})
         }
 
         await cartManager.addProductToCart(cid, {productId: pid, quantity})
