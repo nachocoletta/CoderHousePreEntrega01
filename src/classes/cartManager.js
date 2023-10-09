@@ -44,8 +44,10 @@ export class CartManager {
             const carts = await getJSONFromFile(this.path)
             let cartIndex = carts.findIndex(c  => c.id === cartId)
             // console.log("cartIndex", cartIndex)
-            if(cartIndex){
+            // return true
+            if(cartIndex >= 0){
                 let findedProduct = carts[cartIndex].products.find(element => element.productId === productId)
+                console.log("findedProduct", findedProduct)
                 if(!findedProduct){
                     carts[cartIndex].products.push({productId, quantity})
                 }else{
