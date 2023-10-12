@@ -1,9 +1,11 @@
 import { getNewId, getJSONFromFile, saveJSONToFile } from '../utils/utils.js'
+import { ProductManager } from './productManager.js'
 
 
 export class CartManager {
-    constructor(path){
-        this.path = path;
+    constructor(pathCart, pathProducts){
+        this.path = pathCart;
+        this.pathProducts = pathProducts;
     }
     
     async addCart(){
@@ -43,16 +45,25 @@ export class CartManager {
             //  return {cartId, productId, quantity}
             const carts = await getJSONFromFile(this.path)
             let cartIndex = carts.findIndex(c  => c.id === cartId)
-            // console.log("cartIndex", cartIndex)
-            // return true
+
             if(cartIndex >= 0){
                 let findedProduct = carts[cartIndex].products.find(element => element.productId === productId)
-                console.log("findedProduct", findedProduct)
+                // console.log("findedProduct", findedProduct, productId)
                 if(!findedProduct){
-                    carts[cartIndex].products.push({productId, quantity})
+                    const productManager = new ProductManager(this.pathProducts)
+                    let product = await productManager.getProductById(productId)
+                    // console.log("product", product)
+                    if(typeof product !== 'string'){
+                        carts[cartIndex].products.push({productId, quantity})
+                    }else {
+                        throw new Error(`Product with id ${productId} doesn't exists`)
+                        // console.log(`Product with id ${productId} doesn't exists`)
+                    }
+
                 }else{
                     let findedIndex = carts[cartIndex].products.findIndex(prod => prod.productId === productId)
-                    carts[cartIndex].products[findedIndex].quantity = carts[cartIndex].products[findedIndex].quantity + quantity 
+                  
+                    carts[cartIndex].products[findedIndex].quantity += quantity 
                 }
                 // console.log(carts[cartIndex])
                 await saveJSONToFile(this.path, carts)

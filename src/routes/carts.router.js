@@ -11,12 +11,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const absolutePath = path.resolve(__dirname, '../data/carts.json');
-
 // console.log("absolutePath", absolutePath)
 
-const cartManager = new CartManager(absolutePath)
-
 const absolutePathProduct = path.resolve(__dirname, '../data/products.json');
+
+const cartManager = new CartManager(absolutePath, absolutePathProduct)
 const productManager = new ProductManager(absolutePathProduct)
 
 
