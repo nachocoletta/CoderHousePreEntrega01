@@ -50,7 +50,7 @@ export class CartManager {
                 if (!findedProduct) {
                     const productManager = new ProductManager(pathProducts)
                     let product = await productManager.getProductById(productId)
-                    console.log("product", product)
+                    // console.log("product", product)
                     if (typeof product !== 'string') {
                         carts[cartIndex].products.push({ productId, quantity })
                     } else {
